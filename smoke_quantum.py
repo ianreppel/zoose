@@ -122,17 +122,6 @@ def qutip_fidelity():
     return f"qutip {qutip.__version__}"
 
 
-def strawberryfields_squeeze():
-    import strawberryfields as sf
-
-    prog = sf.Program(1)
-    with prog.context as q:
-        sf.ops.Sgate(0.5) | q[0]
-    state = sf.Engine("fock", backend_options={"cutoff_dim": 8}).run(prog).state
-    assert abs(float(state.trace()) - 1.0) < 0.05
-    return f"strawberryfields {sf.__version__}"
-
-
 def braket_local():
     from importlib.metadata import version
 
@@ -159,7 +148,6 @@ for label, func in [
     ("openfermion", openfermion_ops),
     ("pytket", pytket_bell),
     ("qutip", qutip_fidelity),
-    ("strawberryfields", strawberryfields_squeeze),
 ]:
     check(label, func)
 

@@ -5,16 +5,15 @@ aiohappyeyeballs==2.7.1   # via aiohttp
 aiohttp==3.14.5           # via scrapy
 aiosignal==1.4.0          # via aiohttp
 altair==6.3.0             # via prince
-amazon-braket-default-simulator==1.27.0  # via amazon-braket-sdk
+amazon-braket-default-simulator==1.43.1  # via amazon-braket-sdk
 amazon-braket-pennylane-plugin==1.36.1  # via -r quantum/requirements.in
 amazon-braket-schemas==1.33.0  # via amazon-braket-default-simulator, amazon-braket-sdk
-amazon-braket-sdk==1.99.0  # via amazon-braket-pennylane-plugin, amazon-braket-strawberryfields-plugin, -r quantum/requirements.in
-amazon-braket-strawberryfields-plugin==1.1.0.post1  # via -r quantum/requirements.in
+amazon-braket-sdk==1.127.8  # via amazon-braket-pennylane-plugin, -r quantum/requirements.in
 annotated-doc==0.0.6      # via typer
 annotated-types==0.8.0    # via pydantic
-antlr4-python3-runtime==4.9.2  # via amazon-braket-default-simulator, openpulse, openqasm3, quantum-blackbird
+antlr4-python3-runtime==4.13.2  # via amazon-braket-default-simulator, openpulse, openqasm3
 anyio==4.16.0             # via httpx, jupyter-server, jupyterlab-git-core
-appdirs==1.4.4            # via pennylane, xanadu-cloud-client
+appdirs==1.4.4            # via pennylane
 argon2-cffi==25.1.0       # via jupyter-server
 argon2-cffi-bindings==26.2.0  # via argon2-cffi
 arrow==1.4.0              # via isoduration
@@ -28,7 +27,6 @@ autopep8==2.0.4           # via python-lsp-server
 autoray==0.8.4            # via amazon-braket-pennylane-plugin, pennylane
 babel==2.18.0             # via jupyterlab-server
 backoff==2.2.1            # via amazon-braket-sdk
-backports-entry-points-selectable==1.3.0  # via amazon-braket-sdk
 backports-zstd==1.8.0     # via scrapy
 beautifulsoup4==4.15.0    # via nbconvert, -r quantum/requirements.in
 black==26.10.1            # via python-lsp-server, -r quantum/requirements.in
@@ -43,16 +41,16 @@ catalogue==2.0.10         # via spacy, srsly, thinc
 certifi==2026.10.23       # via httpcore, httpx, requests
 cffi==2.1.1               # via argon2-cffi-bindings, cryptography, pycares
 charset-normalizer==3.5.2  # via requests
-cirq==1.6.1               # via -r quantum/requirements.in
-cirq-aqt==1.6.1           # via cirq
-cirq-core==1.6.1          # via cirq, cirq-aqt, cirq-google, cirq-ionq, cirq-pasqal, cirq-web, openfermion, pennylane-cirq
-cirq-google==1.6.1        # via cirq
-cirq-ionq==1.6.1          # via cirq
-cirq-pasqal==1.6.1        # via cirq, pennylane-cirq
-cirq-web==1.6.1           # via cirq
-click==8.5.1              # via black, dask, nltk, spacy, weasel
+cirq==1.7.0               # via -r quantum/requirements.in
+cirq-aqt==1.7.0           # via cirq
+cirq-core==1.7.0          # via cirq, cirq-aqt, cirq-google, cirq-ionq, cirq-pasqal, cirq-web, openfermion, pennylane-cirq
+cirq-google==1.7.0        # via cirq
+cirq-ionq==1.7.0          # via cirq
+cirq-pasqal==1.7.0        # via cirq, pennylane-cirq
+cirq-web==1.7.0           # via cirq
+click==8.5.1              # via black, nltk, spacy, weasel
 cloudpathlib==0.26.0      # via weasel
-cloudpickle==2.2.1        # via amazon-braket-sdk, dask, shap
+cloudpickle==2.2.1        # via amazon-braket-sdk, shap
 colorama==0.4.6           # via nbdime, -r quantum/requirements.in
 comm==0.2.3               # via ipykernel, ipywidgets
 confection==1.3.4         # via spacy, thinc, weasel
@@ -63,7 +61,6 @@ cssselect==1.6.0          # via parsel, scrapy
 cycler==0.12.1            # via matplotlib
 cymem==2.0.16             # via preshed, spacy, thinc
 cython==3.3.1             # via typedunits
-dask==2024.8.0            # via thewalrus
 debugpy==1.8.22           # via ipykernel
 defusedxml==0.7.1         # via nbconvert, nltk, scrapy
 deprecation==2.1.0        # via openfermion
@@ -75,7 +72,6 @@ et-xmlfile==2.0.0         # via openpyxl
 executing==2.3.0          # via stack-data
 fastjsonschema==2.22.3    # via nbformat
 filelock==4.2.10          # via tldextract
-fire==0.7.1               # via xanadu-cloud-client
 flake8==7.1.2             # via python-lsp-server
 fonttools==4.68.0         # via matplotlib
 formerly==0.1.0           # via scrapy
@@ -83,17 +79,16 @@ formulaic==1.2.2          # via statsmodels
 fqdn==1.6.0               # via jsonschema
 frostwork==0.2.2          # via scrapy, w3lib
 frozenlist==1.8.0         # via aiohttp, aiosignal
-fsspec==2026.9.0          # via dask
 gast==0.7.0               # via pennylane
 gitdb==4.0.12             # via gitpython
 gitpython==3.2.1          # via nbdime
-google-api-core==2.33.0   # via cirq-google
+google-api-core==2.44.0   # via cirq-google
 google-auth==2.62.2       # via google-api-core
-googleapis-common-protos==1.75.0  # via google-api-core, grpcio-status
+googleapis-common-protos==1.76.0  # via google-api-core, grpcio-status
 gower==0.1.2              # via -r quantum/requirements.in
 graphviz==0.21            # via pytket
 grpcio==1.85.1            # via google-api-core, grpcio-status
-grpcio-status==1.71.2     # via google-api-core
+grpcio-status==1.85.1     # via google-api-core
 h11==0.16.0               # via httpcore
 h5py==3.16.0              # via keras, openfermion
 httpcore==1.0.9           # via httpx
@@ -144,12 +139,10 @@ keras==3.15.1             # via -r quantum/requirements.in
 kiwisolver==1.5.1         # via matplotlib
 kneed==0.9.0              # via -r quantum/requirements.in
 lark==1.3.1               # via pytket, rfc3987-syntax
-lark-parser==0.12.0       # via quantum-xir
 lazy-importer==0.1.0      # via importlib-metadata
 lazy-loader==0.6          # via scikit-image
 lime==0.2.0.1             # via -r quantum/requirements.in
 llvmlite==0.50.0          # via numba
-locket==1.0.0             # via partd
 lxml==6.1.3               # via parsel, scrapy
 markdown-it-py==4.3.0     # via rich
 markupsafe==3.0.4         # via jinja2, nbconvert
@@ -171,31 +164,30 @@ nbdime==4.0.4             # via jupyterlab-git-core
 nbformat==5.11.1          # via jupyter-server, jupyterlab-git-core, nbclient, nbconvert, nbdime
 nest-asyncio==1.6.0       # via amazon-braket-sdk
 nest-asyncio2==1.7.4      # via ipykernel
-networkx==3.7             # via amazon-braket-sdk, cirq-core, openfermion, pennylane, pennylane-qiskit, pytket, quantum-blackbird, scikit-image, strawberryfields
+networkx==3.7             # via amazon-braket-sdk, cirq-core, openfermion, pennylane, pennylane-qiskit, pytket, scikit-image
 nltk==3.10.4              # via -r quantum/requirements.in
 notebook-shim==0.2.4      # via jupyterlab
-numba==0.68.1             # via strawberryfields, thewalrus
-numpy==2.2.6              # via amazon-braket-default-simulator, amazon-braket-sdk, autograd, blis, cirq-core, contourpy, formulaic, gower, h5py, imageio, keras, kneed, lime, matplotlib, ml-dtypes, numba, openfermion, oqpy, pandas, patsy, pennylane, pytket, qiskit, qiskit-aer, qiskit-ibm-runtime, quantum-blackbird, qutip, rustworkx, scikit-image, scikit-learn, scipy, seaborn, shap, spacy, statsmodels, strawberryfields, thewalrus, thinc, tifffile, tikzplotlib, typedunits, xanadu-cloud-client, -r quantum/requirements.in
+numba==0.68.1             # via amazon-braket-default-simulator
+numpy==2.5.5              # via amazon-braket-default-simulator, amazon-braket-sdk, autograd, blis, cirq-core, contourpy, formulaic, gower, h5py, imageio, keras, kneed, lime, matplotlib, ml-dtypes, numba, openfermion, oqpy, pandas, patsy, pennylane, pytket, qiskit, qiskit-aer, qiskit-ibm-runtime, qutip, rustworkx, scikit-image, scikit-learn, scipy, seaborn, shap, spacy, statsmodels, thinc, tifffile, tikzplotlib, typedunits, -r quantum/requirements.in
 openfermion==1.8.1        # via -r quantum/requirements.in
 openpulse==1.0.1          # via amazon-braket-sdk, oqpy
 openpyxl==3.1.5           # via -r quantum/requirements.in
 openqasm3==1.0.2          # via amazon-braket-sdk, openpulse
+opentelemetry-api==1.45.2  # via google-api-core
 opt-einsum==3.4.0         # via amazon-braket-default-simulator
 optree==0.20.0            # via keras
 oqpy==0.3.11              # via amazon-braket-sdk
-packaging==26.3           # via altair, black, dask, deprecation, incremental, ipykernel, jupyter-events, jupyter-server, jupyterlab, jupyterlab-code-formatter, jupyterlab-git-core, jupyterlab-server, keras, lazy-loader, matplotlib, nbconvert, patsy, pennylane, pytoolconfig, qiskit-ibm-runtime, qutip, scikit-image, scrapy, shap, spacy, statsmodels, thinc, weasel
-pandas==2.3.3             # via cirq-core, formulaic, prince, seaborn, shap, statsmodels, -r quantum/requirements.in
+packaging==26.3           # via altair, black, deprecation, incremental, ipykernel, jupyter-events, jupyter-server, jupyterlab, jupyterlab-code-formatter, jupyterlab-git-core, jupyterlab-server, keras, lazy-loader, matplotlib, nbconvert, patsy, pennylane, pytoolconfig, qiskit-ibm-runtime, qutip, scikit-image, scrapy, shap, spacy, statsmodels, thinc, weasel
+pandas==3.0.6             # via cirq-core, formulaic, prince, seaborn, shap, statsmodels, -r quantum/requirements.in
 pandocfilters==1.5.1      # via nbconvert
 parsel==1.12.1            # via itemloaders, scrapy
 parso==0.8.7              # via jedi
-partd==1.4.2              # via dask
 pathspec==1.1.1           # via black
 patsy==1.0.3              # via statsmodels
-pennylane==0.45.1         # via amazon-braket-pennylane-plugin, pennylane-cirq, pennylane-lightning, pennylane-qiskit, pennylane-sf, -r quantum/requirements.in
+pennylane==0.45.1         # via amazon-braket-pennylane-plugin, pennylane-cirq, pennylane-lightning, pennylane-qiskit, -r quantum/requirements.in
 pennylane-cirq==0.44.0    # via -r quantum/requirements.in
 pennylane-lightning==0.45.0  # via pennylane
 pennylane-qiskit==0.45.1  # via -r quantum/requirements.in
-pennylane-sf==0.29.0      # via -r quantum/requirements.in
 pexpect==4.9.0            # via ipython, jupyterlab-git-core
 pillow==13.0.0            # via imageio, matplotlib, qiskit, scikit-image, tikzplotlib
 platformdirs==4.14.5      # via black, jupyter-core, pylint, pytoolconfig, scrapy, yapf
@@ -206,8 +198,8 @@ prometheus-client==0.26.0  # via jupyter-server
 prompt-toolkit==3.0.53    # via ipython
 propcache==0.5.4          # via aiohttp, yarl
 protego==0.7.0            # via scrapy
-proto-plus==1.28.2        # via cirq-google, google-api-core
-protobuf==5.29.6          # via cirq-google, google-api-core, googleapis-common-protos, grpcio-status, proto-plus, typedunits
+proto-plus==1.29.0        # via cirq-google, google-api-core
+protobuf==6.33.6          # via cirq-google, google-api-core, googleapis-common-protos, grpcio-status, proto-plus, typedunits
 psutil==7.2.2             # via ipython, qiskit-aer
 ptyprocess==0.7.0         # via pexpect, terminado
 pubchempy==1.0.5          # via openfermion
@@ -217,9 +209,8 @@ pyasn1-modules==0.4.2     # via google-auth
 pycares==5.2.1            # via aiodns
 pycodestyle==2.12.1       # via autopep8, flake8, python-lsp-server
 pycparser==3.12           # via cffi
-pydantic==2.14.3          # via amazon-braket-default-simulator, amazon-braket-schemas, pydantic-settings, qiskit-ibm-runtime, spacy, thinc, typer, weasel, xanadu-cloud-client
+pydantic==2.14.3          # via amazon-braket-default-simulator, amazon-braket-schemas, qiskit-ibm-runtime, spacy, thinc, typer, weasel
 pydantic-core==2.50.4     # via pydantic
-pydantic-settings==2.16.3  # via xanadu-cloud-client
 pydispatcher==2.0.7       # via scrapy
 pydocstyle==6.3.0         # via python-lsp-server
 pydot==4.0.1              # via qiskit
@@ -231,29 +222,25 @@ pylint==4.0.10            # via python-lsp-server
 pyopenssl==26.4.0         # via scrapy
 pyparsing==3.3.3          # via matplotlib, pydot, typedunits
 pyspnego==0.12.4          # via requests-ntlm
-python-dateutil==2.9.0.post0  # via arrow, botocore, ibm-cloud-sdk-core, jupyter-client, matplotlib, pandas, pennylane-qiskit, qiskit-aer, qiskit-ibm-runtime, strawberryfields, xanadu-cloud-client
-python-dotenv==1.2.4      # via pydantic-settings, xanadu-cloud-client
+python-dateutil==2.9.0.post0  # via arrow, botocore, ibm-cloud-sdk-core, jupyter-client, matplotlib, pandas, pennylane-qiskit, qiskit-aer, qiskit-ibm-runtime
 python-json-logger==4.2.0  # via jupyter-events
 python-lsp-jsonrpc==1.1.2  # via python-lsp-server
 python-lsp-server==1.15.0  # via -r quantum/requirements.in
 pytket==2.18.5            # via -r quantum/requirements.in
 pytokens==0.4.1           # via black
 pytoolconfig==1.3.1       # via rope
-pytz==2026.6              # via pandas
-pyyaml==6.0.3             # via dask, jupyter-events
+pyyaml==6.0.3             # via jupyter-events
 pyzmq==27.3.0             # via ipykernel, jupyter-client, jupyter-server
-qiskit==2.4.2             # via pennylane-qiskit, qiskit-aer, qiskit-ibm-runtime, -r quantum/requirements.in
+qiskit==2.6.2             # via pennylane-qiskit, qiskit-aer, qiskit-ibm-runtime, -r quantum/requirements.in
 qiskit-aer==0.17.2        # via pennylane-qiskit
 qiskit-ibm-runtime==0.45.1  # via pennylane-qiskit
-quantum-blackbird==0.5.0  # via strawberryfields
-quantum-xir==0.2.2        # via strawberryfields
 queuelib==1.10.0          # via scrapy
 qutip==5.3.1              # via -r quantum/requirements.in
 qwasm==1.0.1              # via pytket
 rapidfuzz==3.14.6         # via thefuzz
 referencing==0.37.0       # via jsonschema, jsonschema-specifications, jupyter-events
 regex==2026.11.15         # via nltk
-requests==2.34.2          # via cirq-aqt, cirq-ionq, cirq-pasqal, google-api-core, ibm-cloud-sdk-core, jupyterlab-server, nbdime, openfermion, pennylane, qiskit-ibm-runtime, requests-file, requests-ntlm, smart-open, spacy, strawberryfields, tldextract, xanadu-cloud-client, -r quantum/requirements.in
+requests==2.34.2          # via cirq-aqt, cirq-ionq, cirq-pasqal, google-api-core, ibm-cloud-sdk-core, jupyterlab-server, nbdime, openfermion, pennylane, qiskit-ibm-runtime, requests-file, requests-ntlm, smart-open, spacy, tldextract, -r quantum/requirements.in
 requests-file==3.0.1      # via tldextract
 requests-ntlm==1.3.0      # via qiskit-ibm-runtime
 rfc3339-validator==0.1.4  # via jsonschema, jupyter-events
@@ -266,13 +253,13 @@ rustworkx==0.18.1         # via pennylane, qiskit
 s3transfer==0.19.3        # via boto3
 scikit-image==0.26.0      # via lime
 scikit-learn==1.9.1       # via lime, prince, shap, -r quantum/requirements.in
-scipy==1.13.1             # via amazon-braket-default-simulator, cirq-core, formulaic, gower, kneed, lime, openfermion, pennylane, pytket, qiskit, qiskit-aer, qutip, scikit-image, scikit-learn, shap, statsmodels, strawberryfields, thewalrus, -r quantum/requirements.in
+scipy==1.18.1             # via amazon-braket-default-simulator, cirq-core, formulaic, gower, kneed, lime, openfermion, pennylane, pytket, qiskit, qiskit-aer, qutip, scikit-image, scikit-learn, shap, statsmodels, -r quantum/requirements.in
 scipy-openblas32==0.3.34.481.3  # via pennylane-lightning
 scrapy==2.20.0            # via -r quantum/requirements.in
 seaborn==0.13.2           # via qiskit, -r quantum/requirements.in
 send2trash==2.2.0         # via jupyter-server
 service-identity==26.1.0  # via scrapy
-setuptools==80.10.2       # via qwasm, spacy, thinc, -r quantum/requirements.in
+setuptools==84.2.1        # via qwasm, spacy, thinc
 shap==0.54.1              # via -r quantum/requirements.in
 shellingham==1.5.4        # via typer
 six==1.17.0               # via python-dateutil, rfc3339-validator
@@ -280,7 +267,6 @@ slicer==0.0.8             # via shap
 smart-open==9.0.4         # via weasel
 smmap==5.0.3              # via gitdb
 snowballstemmer==3.1.1    # via pydocstyle
-sortedcontainers==2.4.0   # via cirq-core
 soupsieve==4.1.1          # via beautifulsoup4
 spacy==3.8.18             # via -r quantum/requirements.in
 spacy-legacy==3.0.12      # via spacy
@@ -289,33 +275,29 @@ srsly==2.5.6              # via spacy, thinc, weasel
 stack-data==0.6.3         # via ipython
 statsmodels==0.15.0       # via -r quantum/requirements.in
 stevedore==5.10.0         # via qiskit
-strawberryfields==0.23.0  # via amazon-braket-strawberryfields-plugin, pennylane-sf, -r quantum/requirements.in
-sympy==1.14.0             # via amazon-braket-default-simulator, amazon-braket-sdk, cirq-core, openfermion, pennylane-qiskit, pytket, qiskit, quantum-blackbird, strawberryfields, thewalrus
-termcolor==3.3.0          # via diastatic-malt, fire
+sympy==1.14.0             # via amazon-braket-default-simulator, amazon-braket-sdk, cirq-core, openfermion, pennylane-qiskit, pytket, qiskit
+termcolor==3.3.0          # via diastatic-malt
 terminado==0.18.1         # via jupyter-server, jupyter-server-terminals
 thefuzz==0.22.1           # via -r quantum/requirements.in
-thewalrus==0.21.0         # via strawberryfields
 thinc==8.3.14             # via spacy
 threadpoolctl==3.8.0      # via scikit-learn
 tifffile==2026.11.12      # via scikit-image
 tikzplotlib==0.10.1       # via -r quantum/requirements.in
 tinycss2==1.5.1           # via bleach
 tldextract==5.4.0         # via scrapy
-toml==0.10.2              # via strawberryfields
 tomlkit==0.15.2           # via pennylane, pylint
-toolz==1.2.0              # via dask, partd
 tornado==6.6.1            # via ipykernel, jupyter-client, jupyter-server, jupyterlab, nbdime, terminado
 tqdm==4.70.1              # via cirq-core, lime, nltk, shap, spacy, -r quantum/requirements.in
 traitlets==5.16.1         # via ipykernel, ipython, ipywidgets, jupyter-builder, jupyter-client, jupyter-core, jupyter-events, jupyter-server, jupyterlab, jupyterlab-git, jupyterlab-git-core, matplotlib-inline, nbclient, nbconvert, nbformat
 twisted==26.10.0          # via scrapy
 typedunits==0.0.2         # via cirq-google
 typer==0.29.1             # via spacy, weasel
-typing-extensions==4.16.0  # via aiohttp, aiosignal, altair, anyio, beautifulsoup4, cirq-core, docstring-to-markdown, formulaic, frostwork, grpcio, jupyter-client, optree, pennylane, prince, pydantic, pydantic-core, pydantic-settings, pyopenssl, pytket, qiskit, referencing, scrapy, twisted, typing-inspection
-typing-inspection==0.4.5  # via pydantic, pydantic-settings
-tzdata==2026.6            # via arrow, pandas
+typing-extensions==4.16.0  # via aiohttp, aiosignal, altair, anyio, beautifulsoup4, docstring-to-markdown, formulaic, frostwork, grpcio, jupyter-client, opentelemetry-api, optree, pennylane, prince, pydantic, pydantic-core, pyopenssl, pytket, qiskit, referencing, scrapy, twisted, typing-inspection
+typing-inspection==0.4.5  # via pydantic
+tzdata==2026.6            # via arrow
 ujson==6.1.0              # via python-lsp-jsonrpc, python-lsp-server
 uri-template==1.3.0       # via jsonschema
-urllib3==2.8.0            # via botocore, ibm-cloud-sdk-core, qiskit-ibm-runtime, requests, strawberryfields
+urllib3==2.8.0            # via botocore, ibm-cloud-sdk-core, qiskit-ibm-runtime, requests
 w3lib==2.6.0              # via parsel, scrapy
 wasabi==1.1.3             # via spacy, thinc, weasel
 wcwidth==0.9.4            # via prompt-toolkit
@@ -326,7 +308,6 @@ websocket-client==1.9.2   # via jupyter-server
 whatthepatch==1.0.7       # via python-lsp-server
 widgetsnbextension==4.0.16  # via ipywidgets
 wrapt==2.5.2              # via formulaic, smart-open
-xanadu-cloud-client==0.3.2  # via strawberryfields
 yapf==0.43.0              # via python-lsp-server
 yarl==1.25.1              # via aiohttp
 zipp==4.1.2               # via importlib-metadata
