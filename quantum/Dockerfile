@@ -6,9 +6,6 @@ LABEL org.opencontainers.image.authors="Ian Reppel" \
 
 WORKDIR /setup
 COPY requirements.txt /setup/requirements.txt
-RUN pip install --no-cache-dir --break-system-packages -r /setup/requirements.txt
-
-# HACK for cirq and related libraries
-RUN pip install --no-cache-dir --break-system-packages cirq openfermion pennylane-cirq
+RUN pip install --no-cache-dir --break-system-packages --ignore-installed -r /setup/requirements.txt
 
 ENTRYPOINT ["/jupyter.sh"]

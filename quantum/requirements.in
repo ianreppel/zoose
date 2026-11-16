@@ -1,15 +1,63 @@
-# See: base/requirements.txt
--c requirements.txt
+# Zoose Quantum: one standalone lock (base + quantum together). Re-lock with ./lock-quantum.sh.
+# Everything is unpinned and resolved to the newest compatible version, except the three caps below.
+# Each cap has a reason and a way out: delete the line, run ./lock-quantum.sh and ./smoke_quantum.py.
 
-# Due to issues with pip-compile and cirq (and openfermion), see Dockerfile for hack
-amazon-braket-sdk
+# Base flavour
+beautifulsoup4
+black
+colorama
+gower
+ipywidgets
+isort
+jupyterlab
+jupyterlab-code-formatter
+jupyterlab-git
+jupyterlab-lsp
+jupyterlab-scenes
+jupyterlab-skip-traceback
+jupyterlab-spellchecker
+keras
+kneed
+lime
+matplotlib
+nltk
+numpy
+openpyxl
+pandas
+prince
+python-lsp-server[all]
+requests
+scikit-learn
+scipy
+scrapy
+seaborn
+shap
+spacy
+statsmodels
+thefuzz
+tikzplotlib
+tqdm
+
+# Quantum flavour
 amazon-braket-pennylane-plugin
+amazon-braket-sdk
 amazon-braket-strawberryfields-plugin
+cirq
+openfermion
+pennylane
+pennylane-cirq
 pennylane-qiskit
 pennylane-sf
-pennylane
 pytket
 qiskit
 qiskit[visualization]
 qutip
 strawberryfields
+
+# CAP 1: Strawberry Fields 0.23 imports scipy.integrate.simps, which SciPy removed in 1.14.
+scipy<1.14
+# CAP 2: Strawberry Fields 0.23 imports pkg_resources, which setuptools removed in 81.
+setuptools<81
+# CAP 3: Braket SDK 1.100+ needs a Braket default simulator that pins antlr4 4.13.2, and
+# Strawberry Fields (through quantum-blackbird) pins antlr4 4.9.2. 1.99 is the newest that works.
+amazon-braket-sdk<1.100
