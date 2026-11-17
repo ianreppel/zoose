@@ -94,7 +94,7 @@ Zoose Geo includes everything from Zoose Base as well as:
 - Fiona 1.10.1
 <!-- /versions:geo -->
 
-Fiona and pyogrio wheels each bundle GDAL. The image also builds the `osgeo` bindings at the exact Ubuntu `gdal-config --version`, after installing the lock, so the bindings match system GDAL and compile against the locked NumPy. The wheel GDAL runtimes are independent; their drivers and versions need not match system GDAL. The native bridge is not part of the uv lock and must be checked in the image; it is not proven on this host, which has no system GDAL. See the [GDAL build instructions](https://gdal.org/en/stable/api/python/python_bindings.html).
+Fiona and pyogrio wheels each bundle GDAL. The image also builds the `osgeo` bindings at the exact Ubuntu `gdal-config --version`, after installing the lock, so the bindings match system GDAL and compile against the locked NumPy. The wheel GDAL runtimes are independent; their drivers and versions need not match system GDAL. The native bridge is not part of the uv lock and must be checked in the image; it is not proven on this host, which has no system GDAL. A standalone `smoke.py geo` on a host without system GDAL reports one failure, `osgeo`, and that is expected: only the image has the bridge. See the [GDAL build instructions](https://gdal.org/en/stable/api/python/python_bindings.html).
 
 # How to use?
 Every image builds from one Dockerfile. Each flavour is a build stage, so a flavour needs
@@ -130,17 +130,18 @@ By default JupyterLab listens on `0.0.0.0:8888`, runs as root, and requires no t
 To require a token, pass `-e ZOOSE_TOKEN=your-token` to `docker run`; for example:
 
 ```bash
-docker run --rm -p 8888:8888 -e ZOOSE_TOKEN=your-token databaseline/zoose-base:6.0.0
+docker run --rm -p 8888:8888 -e ZOOSE_TOKEN=your-token "databaseline/zoose-base:${TAG}"   # TAG from .env
 ```
 
-If you do not want to `git clone` the repo, you can use the public Docker image once it is
-published:
+If you do not want to `git clone` the repo, use the published image. The release workflow
+pushes the tags in `.env`, so a version that has not been released yet is not on Docker Hub;
+until then, build it locally with `./zoose.sh base`.
 
 ```bash
 docker run --rm -it \
   -v $(pwd):$(pwd) -w $(pwd) \
   -p 8888:8888 \
-  "databaseline/zoose-base:6.0.0"
+  "databaseline/zoose-base:<released-version>"
 ```
 
 Please ensure that the Docker container has sufficient resources.
