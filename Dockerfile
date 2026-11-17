@@ -27,10 +27,8 @@ SHELL ["/bin/bash", "-cu"]
 
 RUN apt-get update && apt-get -y upgrade && \
       apt-get install -y --no-install-recommends \
-        apt-transport-https \
         ca-certificates \
         build-essential \
-        software-properties-common \
         curl \
         wget \
         gpg gpg-agent \
@@ -44,7 +42,6 @@ RUN apt-get update && apt-get -y upgrade && \
         git \
         sudo \
         graphviz && \
-    add-apt-repository -y universe && apt-get update && \
     ln -s /usr/bin/python${PYTHON_VERSION} /usr/bin/python && \
     rm -rf /var/lib/apt/lists/*
 
@@ -69,29 +66,23 @@ ENTRYPOINT ["/jupyter.sh"]
 
 # ---------------------------------------------------------------- pytorch
 FROM base AS pytorch
-WORKDIR /setup
 COPY pytorch/requirements.txt /setup/requirements.txt
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv pip install --system --break-system-packages -r /setup/requirements.txt
-ENTRYPOINT ["/jupyter.sh"]
 
 # ---------------------------------------------------------------- quantum
 FROM base AS quantum
-WORKDIR /setup
 COPY quantum/requirements.txt /setup/requirements.txt
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv pip install --system --break-system-packages -r /setup/requirements.txt
-ENTRYPOINT ["/jupyter.sh"]
 
 # ---------------------------------------------------------------- geo
 FROM base AS geo
 RUN apt-get update && apt-get install -y --no-install-recommends libgdal-dev && \
     rm -rf /var/lib/apt/lists/*
-WORKDIR /setup
 COPY geo/requirements.txt /setup/requirements.txt
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv pip install --system --break-system-packages -r /setup/requirements.txt
 # The system GDAL bridge must match libgdal exactly and build against the locked NumPy.
 RUN uv pip install --system --break-system-packages --no-build-isolation \
     "gdal==$(gdal-config --version)"
-ENTRYPOINT ["/jupyter.sh"]

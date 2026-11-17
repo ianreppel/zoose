@@ -5,6 +5,7 @@
 # end names every failure and the log to read.
 set -uo pipefail
 cd "$(dirname "$0")"
+[ -f .env ] || { echo '.env is missing; it holds PREFIX and TAG' >&2; exit 1; }
 set -a; source .env; set +a
 images=(base pytorch quantum geo)
 logs="${TMPDIR:-/tmp}"

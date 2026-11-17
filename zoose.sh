@@ -8,6 +8,7 @@
 # not published on Docker Hub, so a fresh clone has nothing to run and nothing to pull.
 set -euo pipefail
 cd "$(dirname "$0")"
+[ -f .env ] || { echo '.env is missing; it holds PREFIX and TAG' >&2; exit 1; }
 set -a; source .env; set +a
 FLAVOUR="${1:-base}"
 IMAGE="${PREFIX}-${FLAVOUR}:${TAG}"

@@ -20,8 +20,6 @@ group "default" {
   targets = ["base", "pytorch", "quantum", "geo"]
 }
 
-// The registry cache is additive: it speeds a rebuild without changing what is built.
-// Set ZOOSE_CACHE=1 to push and pull it; leave it unset for a fully local build.
 target "_common" {
   dockerfile = "Dockerfile"
   context    = "."
