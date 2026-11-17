@@ -70,7 +70,6 @@ geopy==2.5.0              # via contextily
 gitdb==4.0.12             # via gitpython
 gitpython==3.2.1          # via nbdime
 google-crc32c==1.9.0      # via zarr
-gower==0.1.2              # via -r geo/../base/requirements.in
 h11==0.16.0               # via httpcore
 h3==4.5.0                 # via -r geo/requirements.in
 h5py==3.16.0              # via keras, -r geo/requirements.in
@@ -153,7 +152,7 @@ networkx==3.7             # via mapclassify, scikit-image
 nltk==3.10.4              # via -r geo/../base/requirements.in
 notebook-shim==0.2.4      # via jupyterlab
 numcodecs==0.17.1         # via zarr
-numpy==2.5.5              # via blis, cartopy, cftime, contourpy, formulaic, geopandas, gower, h5py, imageio, jax, jaxlib, keras, kneed, lime, mapclassify, matplot2tikz, matplotlib, ml-dtypes, netcdf4, numcodecs, pandas, patsy, pyogrio, rasterio, scikit-image, scikit-learn, scipy, seaborn, shap, shapely, spacy, statsmodels, thinc, tifffile, xarray, zarr, -r geo/../base/requirements.in
+numpy==2.5.5              # via blis, cartopy, cftime, contourpy, formulaic, geopandas, h5py, imageio, jax, jaxlib, keras, kneed, lime, mapclassify, matplot2tikz, matplotlib, ml-dtypes, netcdf4, numcodecs, pandas, patsy, pyogrio, rasterio, scikit-image, scikit-learn, scipy, seaborn, shap, shapely, spacy, statsmodels, thinc, tifffile, xarray, zarr, -r geo/../base/requirements.in
 openpyxl==3.1.5           # via -r geo/../base/requirements.in
 opt-einsum==3.4.0         # via jax
 optree==0.20.0            # via keras
@@ -215,7 +214,7 @@ rope==1.15.2              # via python-lsp-server
 rpds-py==2026.9.1         # via jsonschema, referencing
 scikit-image==0.26.0      # via lime
 scikit-learn==1.9.1       # via lime, mapclassify, prince, shap, -r geo/../base/requirements.in
-scipy==1.18.1             # via formulaic, gower, jax, jaxlib, kneed, lime, mapclassify, scikit-image, scikit-learn, shap, statsmodels, -r geo/../base/requirements.in
+scipy==1.18.1             # via formulaic, jax, jaxlib, kneed, lime, mapclassify, scikit-image, scikit-learn, shap, statsmodels, -r geo/../base/requirements.in
 scrapy==2.20.0            # via -r geo/../base/requirements.in
 seaborn==0.13.2           # via geoplot, -r geo/../base/requirements.in
 send2trash==2.2.0         # via jupyter-server
