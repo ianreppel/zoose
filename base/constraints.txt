@@ -1,2 +1,1 @@
-# Because of quantum libraries
-# networkx==2.8.8
+# No constraints. Add a justified temporary cap to the relevant requirements.in instead.

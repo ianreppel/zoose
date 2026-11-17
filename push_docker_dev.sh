@@ -1,16 +1,10 @@
 #!/bin/bash
-
+set -euo pipefail
+cd "$(dirname "$0")"
 source .env
-for dir in *; do
-  if [ -d "${dir}" ]; then
-  	if [ "${dir}" != "gitpod" ]; then
-      docker tag  "${PREFIX}-${dir}" "${PREFIX}-${dir}:dev-${TAG}"
-      docker push "${PREFIX}-${dir}:dev-${TAG}"
-    else
-      docker tag  "${PREFIX}-base-${dir}" "${PREFIX}-base-${dir}:dev-${TAG}"
-      docker push "${PREFIX}-base-${dir}:dev-${TAG}"
-      docker tag  "${PREFIX}-quantum-${dir}" "${PREFIX}-quantum-${dir}:dev-${TAG}"
-      docker push "${PREFIX}-quantum-${dir}:dev-${TAG}"
-    fi
-  fi
+# Guard manual publishing too: no image is pushed until the complete suite passes.
+./.github/smoke-images.sh
+for flavour in base neo4j pytorch quantum geo base-gitpod pytorch-gitpod quantum-gitpod geo-gitpod; do
+  docker tag "${PREFIX}-${flavour}:${TAG}" "${PREFIX}-${flavour}:dev-${TAG}"
+  docker push "${PREFIX}-${flavour}:dev-${TAG}"
 done

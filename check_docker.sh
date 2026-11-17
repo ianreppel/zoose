@@ -1,9 +1,7 @@
 #!/bin/bash
-for dir in *; do
-  if [ -d "${dir}" ]; then
-    echo "${dir}"
-    docker run --pull always --rm -i \
-      -v $(pwd)/hadolint.yaml:/.config/hadolint.yaml \
-      hadolint/hadolint < "${dir}/Dockerfile"
-  fi
+set -euo pipefail
+cd "$(dirname "$0")"
+for flavour in base neo4j pytorch quantum geo gitpod; do
+  docker run --pull always --rm -i -v "$PWD/hadolint.yaml:/.config/hadolint.yaml:ro" \
+    hadolint/hadolint < "$flavour/Dockerfile"
 done

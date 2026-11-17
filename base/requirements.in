@@ -1,10 +1,10 @@
-# Generated from base/constraints.txt
--c constraints.txt
-
+# Shared base inputs. Resolve with ./lock.sh; no version caps.
+# gower removed 2026-11-16: last release 2022-11-13, unmaintained, and it reads a
+# pandas 3 string column through numpy as a dtype and raises TypeError. Keeping it
+# would pin every flavour to pandas 2. Use gower distance from scipy or sklearn instead.
 beautifulsoup4
 black
 colorama
-gower
 ipywidgets
 isort
 jupyterlab-code-formatter
@@ -15,6 +15,7 @@ jupyterlab-skip-traceback
 jupyterlab-spellchecker
 jupyterlab
 keras
+jax
 kneed
 lime
 matplotlib
@@ -33,5 +34,6 @@ shap
 spacy
 statsmodels
 thefuzz
-tikzplotlib
+# Maintained successor to tikzplotlib; use import matplot2tikz.
+matplot2tikz
 tqdm

@@ -29,6 +29,11 @@ def qiskit_bell():
     qc.cx(0, 1)
     probs = {str(k): round(float(v), 3) for k, v in Statevector(qc).probabilities_dict().items()}
     assert probs == {"00": 0.5, "11": 0.5}, probs
+    from qiskit.primitives import StatevectorEstimator
+    from qiskit.quantum_info import SparsePauliOp
+
+    estimate = StatevectorEstimator().run([(qc, SparsePauliOp("XX"))]).result()[0].data.evs
+    assert abs(float(estimate) - 1.0) < 1e-9, estimate
     return f"qiskit {qiskit.__version__}"
 
 

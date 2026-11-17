@@ -1,68 +1,84 @@
 services:
   base:
-    image: "databaseline/zoose-base"
+    image: "${PREFIX}-base:${TAG}"
     build:
       context: base
       dockerfile: Dockerfile
     ports:
       - "8888:8888"
-  base-gitpod:
-    image: "databaseline/zoose-base-gitpod"
-    build:
-      context: gitpod
-      dockerfile: Dockerfile
-    depends_on:
-      - base
   neo4j:
-    image: "databaseline/zoose-neo4j"
+    image: "${PREFIX}-neo4j:${TAG}"
     build:
       context: neo4j
       dockerfile: Dockerfile
+      args:
+        BASE_IMAGE: "${PREFIX}-base:${TAG}"
     depends_on:
       - base
     ports:
-      - "7473:7373"
+      - "7473:7473"
       - "7474:7474"
-      - "7687:7686"
+      - "7687:7687"
   pytorch:
-    image: "databaseline/zoose-pytorch"
+    image: "${PREFIX}-pytorch:${TAG}"
     build:
       context: pytorch
       dockerfile: Dockerfile
-    depends_on:
-      - base
-  pytorch-gitpod:
-    image: "databaseline/zoose-pytorch-gitpod"
-    build:
-      context: gitpod
-      dockerfile: Dockerfile
+      args:
+        BASE_IMAGE: "${PREFIX}-base:${TAG}"
     depends_on:
       - base
   quantum:
-    image: "databaseline/zoose-quantum"
+    image: "${PREFIX}-quantum:${TAG}"
     build:
       context: quantum
       dockerfile: Dockerfile
-    depends_on:
-      - base
-  quantum-gitpod:
-    image: "databaseline/zoose-quantum-gitpod"
-    build:
-      context: gitpod
-      dockerfile: Dockerfile
+      args:
+        BASE_IMAGE: "${PREFIX}-base:${TAG}"
     depends_on:
       - base
   geo:
-    image: "databaseline/zoose-geo"
+    image: "${PREFIX}-geo:${TAG}"
     build:
       context: geo
       dockerfile: Dockerfile
+      args:
+        BASE_IMAGE: "${PREFIX}-base:${TAG}"
     depends_on:
       - base
-  geo-gitpod:
-    image: "databaseline/zoose-geo-gitpod"
+  base-gitpod:
+    image: "${PREFIX}-base-gitpod:${TAG}"
     build:
       context: gitpod
       dockerfile: Dockerfile
+      args:
+        BASE_IMAGE: "${PREFIX}-base:${TAG}"
     depends_on:
       - base
+  pytorch-gitpod:
+    image: "${PREFIX}-pytorch-gitpod:${TAG}"
+    build:
+      context: gitpod
+      dockerfile: Dockerfile
+      args:
+        BASE_IMAGE: "${PREFIX}-pytorch:${TAG}"
+    depends_on:
+      - pytorch
+  quantum-gitpod:
+    image: "${PREFIX}-quantum-gitpod:${TAG}"
+    build:
+      context: gitpod
+      dockerfile: Dockerfile
+      args:
+        BASE_IMAGE: "${PREFIX}-quantum:${TAG}"
+    depends_on:
+      - quantum
+  geo-gitpod:
+    image: "${PREFIX}-geo-gitpod:${TAG}"
+    build:
+      context: gitpod
+      dockerfile: Dockerfile
+      args:
+        BASE_IMAGE: "${PREFIX}-geo:${TAG}"
+    depends_on:
+      - geo

@@ -1,42 +1,5 @@
-# Zoose Quantum: one standalone lock (base + quantum together). Re-lock with ./lock-quantum.sh.
-# Everything is unpinned and resolved to the newest compatible version. There are no caps.
-# Strawberry Fields is not included: archived by Xanadu in January 2026, last PyPI release 2022-06-01.
-
-# Base flavour
-beautifulsoup4
-black
-colorama
-gower
-ipywidgets
-isort
-jupyterlab
-jupyterlab-code-formatter
-jupyterlab-git
-jupyterlab-lsp
-jupyterlab-scenes
-jupyterlab-skip-traceback
-jupyterlab-spellchecker
-keras
-kneed
-lime
-matplotlib
-nltk
-numpy
-openpyxl
-pandas
-prince
-python-lsp-server[all]
-requests
-scikit-learn
-scipy
-scrapy
-seaborn
-shap
-spacy
-statsmodels
-thefuzz
-tikzplotlib
-tqdm
+# Standalone base + quantum lock: ./lock.sh quantum
+-r ../base/requirements.in
 
 # Quantum flavour
 amazon-braket-pennylane-plugin

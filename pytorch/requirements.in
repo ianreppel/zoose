@@ -1,11 +1,12 @@
-# See: base/requirements.txt
--c requirements.txt
-
---extra-index-url https://download.pytorch.org/whl/cpu
+# Standalone base + CPU PyTorch lock: ./lock.sh pytorch
+-r ../base/requirements.in
+# CPU wheels for these packages only; all other packages resolve from PyPI.
+--find-links https://download.pytorch.org/whl/cpu/torch/
+--find-links https://download.pytorch.org/whl/cpu/torchaudio/
+--find-links https://download.pytorch.org/whl/cpu/torchvision/
 captum
 torch
 torchaudio
-torchtext
 torchvision
 tensorboard
 transformers

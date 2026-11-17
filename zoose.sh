@@ -1,6 +1,6 @@
 #!/bin/bash
 # Usage:           ./zoose.sh [FLAVOUR]
-# FLAVOUR options: base neo4j quantum r
+# FLAVOUR options: base neo4j pytorch quantum geo
 # FLAVOUR default: base
 # Example:         ./zoose.sh neo4j
 source .env

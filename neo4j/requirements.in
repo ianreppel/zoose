@@ -1,0 +1,3 @@
+# Standalone base + Neo4j client lock: ./lock.sh neo4j
+-r ../base/requirements.in
+neomodel

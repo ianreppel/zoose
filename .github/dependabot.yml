@@ -1,0 +1,15 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+  - package-ecosystem: docker
+    directory: /base
+    schedule:
+      interval: weekly
+    allow:
+      - dependency-name: ubuntu
+    ignore:
+      - dependency-name: ubuntu
+        update-types: [version-update:semver-major]
