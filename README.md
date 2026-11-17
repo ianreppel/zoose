@@ -152,7 +152,7 @@ Install [uv](https://docs.astral.sh/uv/), then run `./lock.sh` to refresh all fi
 
 If a library forces a temporary cap, add it to the relevant `requirements.in`, with the failing operation, upstream issue, and condition for removing it in a comment. Re-lock and reproduce the failure in a fresh environment before accepting the cap. When upstream fixes it, remove the cap, re-lock, and run the same smoke test. Do not hand-edit the generated locks. The weekly workflow proposes verified lock updates in a pull request; Dependabot manages Actions and the Ubuntu image only.
 
-Current compatibility findings: Gower fails on Pandas 3 string columns, and matplot2tikz fails on an empty Seaborn confidence band. The full flavour smoke tests retain both failing operations; publication is blocked while these remain unresolved. No version caps have been added.
+Removed and known limits: `gower` was removed because it has had no release since 2022 and fails on Pandas 3 string columns; use `scipy.spatial.distance.pdist` or `scikit-learn` instead. matplot2tikz 0.5.4 raises an error on a Seaborn `lineplot` with a confidence band, an upstream limit: export plain Matplotlib figures, and the smoke test does. No version caps have been added.
 
 To check one flavour without Docker:
 
