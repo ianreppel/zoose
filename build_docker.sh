@@ -1,7 +1,35 @@
 #!/usr/bin/env bash
-# Build every Zoose image from one graph. Flavours build in parallel; base is built once
-# as a dependency, and nothing needs a published base image first.
-set -euo pipefail
+# Build every Zoose image from one Dockerfile.
+# base is built first because every flavour inherits it. Each flavour then builds in its
+# own `bake` call, so one broken flavour does not cancel the others; the summary at the
+# end names every failure and the log to read.
+set -uo pipefail
 cd "$(dirname "$0")"
 set -a; source .env; set +a
-exec docker buildx bake --load "$@"
+images=(base neo4j pytorch quantum geo)
+logs="${TMPDIR:-/tmp}"
+
+echo "== base"
+if ! docker buildx bake --load base; then
+  echo "FAIL base: nothing else can build without it"
+  exit 1
+fi
+
+for f in "${images[@]:1}"; do
+  ( docker buildx bake --load "$f" > "${logs}/zoose-build-${f}.log" 2>&1; echo $? > "${logs}/zoose-build-${f}.rc" ) &
+done
+wait
+
+fail=0
+echo "== summary"
+echo "ok   base"
+for f in "${images[@]:1}"; do
+  rc="$(cat "${logs}/zoose-build-${f}.rc" 2>/dev/null || echo 1)"
+  if [ "$rc" = "0" ]; then
+    echo "ok   $f"
+  else
+    echo "FAIL $f (see ${logs}/zoose-build-${f}.log)"
+    fail=1
+  fi
+done
+exit "$fail"

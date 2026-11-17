@@ -17,11 +17,3 @@ services:
     image: "${PREFIX}-quantum:${TAG}"
   geo:
     image: "${PREFIX}-geo:${TAG}"
-  base-gitpod:
-    image: "${PREFIX}-base-gitpod:${TAG}"
-  pytorch-gitpod:
-    image: "${PREFIX}-pytorch-gitpod:${TAG}"
-  quantum-gitpod:
-    image: "${PREFIX}-quantum-gitpod:${TAG}"
-  geo-gitpod:
-    image: "${PREFIX}-geo-gitpod:${TAG}"

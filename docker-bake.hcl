@@ -2,7 +2,7 @@
 // in parallel, and each flavour pulls only its own base stage, so nothing waits on a
 // published image or on a hand-ordered list of commands.
 //
-//   docker buildx bake --load              // all nine images
+//   docker buildx bake --load              // all five images
 //   docker buildx bake --load quantum      // one image, base built as a dependency
 //   docker buildx bake --load --set *.max-parallel=4   // cap concurrency
 //
@@ -17,13 +17,6 @@ variable "TAG" {
 }
 
 group "default" {
-  targets = [
-    "base", "neo4j", "pytorch", "quantum", "geo",
-    "base-gitpod", "pytorch-gitpod", "quantum-gitpod", "geo-gitpod",
-  ]
-}
-
-group "flavours" {
   targets = ["base", "neo4j", "pytorch", "quantum", "geo"]
 }
 
@@ -64,26 +57,6 @@ target "geo" {
   tags     = ["${PREFIX}-geo:${TAG}", "${PREFIX}-geo:latest"]
 }
 
-target "base-gitpod" {
-  inherits = ["_common"]
-  target   = "base-gitpod"
-  tags     = ["${PREFIX}-base-gitpod:${TAG}", "${PREFIX}-base-gitpod:latest"]
-}
 
-target "pytorch-gitpod" {
-  inherits = ["_common"]
-  target   = "pytorch-gitpod"
-  tags     = ["${PREFIX}-pytorch-gitpod:${TAG}", "${PREFIX}-pytorch-gitpod:latest"]
-}
 
-target "quantum-gitpod" {
-  inherits = ["_common"]
-  target   = "quantum-gitpod"
-  tags     = ["${PREFIX}-quantum-gitpod:${TAG}", "${PREFIX}-quantum-gitpod:latest"]
-}
 
-target "geo-gitpod" {
-  inherits = ["_common"]
-  target   = "geo-gitpod"
-  tags     = ["${PREFIX}-geo-gitpod:${TAG}", "${PREFIX}-geo-gitpod:latest"]
-}

@@ -20,19 +20,6 @@ What is included in `base` is always included in the rest, too.
 You can run these flavours directly in VSCode from your browser with [GitHub Codespaces](https://github.com/ianreppelR/zoose-codespace/).
 Only two clicks to spin up an IDE or notebook with all packages installed and ready!
 
-### Special flavours
-There are also several special flavours suitable for use with [Gitpod](https://gitpod.io), an alternative to [GitHub Codespaces](https://github.com/features/codespaces).
-- `base-gitpod`
-- `pytorch-gitpod`
-- `quantum-gitpod`
-- `geo-gitpod`
-
-To get started with these special flavours for Gitpod, please use the [template](https://github.com/ianrepp/zoose-gitpod) to create a repository that you use to spin up a [workspace](https://www.gitpod.io/docs/introduction/getting-started) from that repo.
-
-In Gitpod, you have two options for Zoose notebooks:
-1. A VSCode experience
-2. JupyterLab, which you can start from the Gitpod workspace terminal with `/jupyter.sh`.
-
 ### Zoose Base
 - Python 3.12
 
