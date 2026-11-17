@@ -1,84 +1,27 @@
+# Runtime only. Build every image with ./build_docker.sh (docker buildx bake), which
+# builds the flavours in parallel from one Dockerfile. Compose no longer builds anything.
 services:
   base:
     image: "${PREFIX}-base:${TAG}"
-    build:
-      context: base
-      dockerfile: Dockerfile
     ports:
       - "8888:8888"
   neo4j:
     image: "${PREFIX}-neo4j:${TAG}"
-    build:
-      context: neo4j
-      dockerfile: Dockerfile
-      args:
-        BASE_IMAGE: "${PREFIX}-base:${TAG}"
-    depends_on:
-      - base
     ports:
       - "7473:7473"
       - "7474:7474"
       - "7687:7687"
   pytorch:
     image: "${PREFIX}-pytorch:${TAG}"
-    build:
-      context: pytorch
-      dockerfile: Dockerfile
-      args:
-        BASE_IMAGE: "${PREFIX}-base:${TAG}"
-    depends_on:
-      - base
   quantum:
     image: "${PREFIX}-quantum:${TAG}"
-    build:
-      context: quantum
-      dockerfile: Dockerfile
-      args:
-        BASE_IMAGE: "${PREFIX}-base:${TAG}"
-    depends_on:
-      - base
   geo:
     image: "${PREFIX}-geo:${TAG}"
-    build:
-      context: geo
-      dockerfile: Dockerfile
-      args:
-        BASE_IMAGE: "${PREFIX}-base:${TAG}"
-    depends_on:
-      - base
   base-gitpod:
     image: "${PREFIX}-base-gitpod:${TAG}"
-    build:
-      context: gitpod
-      dockerfile: Dockerfile
-      args:
-        BASE_IMAGE: "${PREFIX}-base:${TAG}"
-    depends_on:
-      - base
   pytorch-gitpod:
     image: "${PREFIX}-pytorch-gitpod:${TAG}"
-    build:
-      context: gitpod
-      dockerfile: Dockerfile
-      args:
-        BASE_IMAGE: "${PREFIX}-pytorch:${TAG}"
-    depends_on:
-      - pytorch
   quantum-gitpod:
     image: "${PREFIX}-quantum-gitpod:${TAG}"
-    build:
-      context: gitpod
-      dockerfile: Dockerfile
-      args:
-        BASE_IMAGE: "${PREFIX}-quantum:${TAG}"
-    depends_on:
-      - quantum
   geo-gitpod:
     image: "${PREFIX}-geo-gitpod:${TAG}"
-    build:
-      context: gitpod
-      dockerfile: Dockerfile
-      args:
-        BASE_IMAGE: "${PREFIX}-geo:${TAG}"
-    depends_on:
-      - geo

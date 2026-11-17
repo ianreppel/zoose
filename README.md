@@ -119,11 +119,34 @@ Zoose Geo includes everything from Zoose Base as well as:
 Fiona and pyogrio wheels each bundle GDAL. The image also builds the `osgeo` bindings at the exact Ubuntu `gdal-config --version`, after installing the lock, so the bindings match system GDAL and compile against the locked NumPy. The wheel GDAL runtimes are independent; their drivers and versions need not match system GDAL. The native bridge is not part of the uv lock and must be checked in the image; it is not proven on this host, which has no system GDAL. See the [GDAL build instructions](https://gdal.org/en/stable/api/python/python_bindings.html).
 
 # How to use?
-Execute `./zoose.sh`, which launches a Jupyter notebooks session.
-By default it launches Zoose Base.
-If the image is not on the machine, the script builds it first with `docker compose build`, because the 6.0.0 tags are not published on Docker Hub.
-The first build takes several minutes and needs about 3 GB of disk per flavour.
-If you want Neo4j, Geo, or Quantum, just use `./zoose.sh neo4j`, `./zoose.sh geo`, or `./zoose.sh quantum` instead.
+Every image builds from one Dockerfile. Each flavour is a build stage, so a flavour needs
+no published base image and no particular order of commands.
+
+Build everything in parallel, then run a flavour:
+
+```bash
+./build_docker.sh          # docker buildx bake --load, all nine images
+./zoose.sh neo4j
+```
+
+Or build and run one flavour in a single step. `./zoose.sh` builds the image through the
+same graph when it is not on the machine:
+
+```bash
+./zoose.sh quantum
+```
+
+To build without running:
+
+```bash
+docker buildx bake --load quantum     # one image
+docker buildx bake --load             # all of them
+docker buildx bake --load --set *.max-parallel=4   # cap how many run at once
+```
+
+The pip installs use a BuildKit cache mount, so a rebuild after a requirements change
+reuses the wheels instead of downloading them again. `docker-compose.yml` runs the images;
+it no longer builds them.
 
 By default JupyterLab listens on `0.0.0.0:8888`, runs as root, and requires no token or password.
 To require a token, pass `-e ZOOSE_TOKEN=your-token` to `docker run`; for example:
@@ -132,7 +155,8 @@ To require a token, pass `-e ZOOSE_TOKEN=your-token` to `docker run`; for exampl
 docker run --rm -p 8888:8888 -e ZOOSE_TOKEN=your-token databaseline/zoose-base:6.0.0
 ```
 
-If you do not want to `git clone` the repo, you can use the public Docker image:
+If you do not want to `git clone` the repo, you can use the public Docker image once it is
+published:
 
 ```bash
 docker run --rm -it \
@@ -146,29 +170,6 @@ Go to _Docker Desktop > Preferences > Resources_ and set the number of CPUs to a
 total number available.
 Assign at least 4 GB of RAM to the container.
 Note that the Jupyter kernel may crash when loading large data sets (into memory).
-These settings apply to _all_ local containers.
-
-## How versions are managed
-
-Install [uv](https://docs.astral.sh/uv/), then run `./lock.sh` to refresh all five Python 3.12 locks, or `./lock.sh quantum` for one flavour. The inputs are intentionally unpinned; prereleases are rejected. Each flavour includes `base/requirements.in` and resolves the whole environment together. The resulting `requirements.txt` is standalone: installing one lock does not need another flavour's lock. This avoids conflicts caused by constraining every flavour to an independently pinned base. `lock.sh` also updates the version lists above from the locks.
-
-If a library forces a temporary cap, add it to the relevant `requirements.in`, with the failing operation, upstream issue, and condition for removing it in a comment. Re-lock and reproduce the failure in a fresh environment before accepting the cap. When upstream fixes it, remove the cap, re-lock, and run the same smoke test. Do not hand-edit the generated locks. The weekly workflow proposes verified lock updates in a pull request; Dependabot manages Actions and the Ubuntu image only.
-
-Removed and known limits: `gower` was removed because it has had no release since 2022 and fails on Pandas 3 string columns; use `scipy.spatial.distance.pdist` or `scikit-learn` instead. matplot2tikz 0.5.4 raises an error on a Seaborn `lineplot` with a confidence band, an upstream limit: export plain Matplotlib figures, and the smoke test does. No version caps have been added.
-
-To check one flavour without Docker:
-
-```bash
-unset PYTHONPATH VIRTUAL_ENV
-uv venv --python 3.12 /tmp/zoose-check
-uv pip install --python /tmp/zoose-check/bin/python --no-cache -r quantum/requirements.txt
-/tmp/zoose-check/bin/python -I smoke.py quantum
-uv pip check --python /tmp/zoose-check/bin/python
-```
-
-Use `base`, `neo4j`, `pytorch`, or `geo` in both places for the other flavours. `smoke_quantum.py` remains available separately. The tests use local computations without cloud credentials or model downloads. The Neo4j venv smoke checks the Python client offline; image CI also starts the database and queries it. After building, `./.github/smoke-images.sh` runs the flavour tests, settings validation, and dependency checks in every regular and Gitpod image. Publishing stops if any check fails.
-
-Jupyter's seven settings files are copied to the installed plugin IDs. Formatting on save uses isort then Black at 120 characters; pylsp's Flake8 and pycodestyle use the same limit. `python -I smoke_jupyter.py` validates the installed settings against the installed extension schemas and exercises pylsp's line-length diagnostics.
 
 ## BigQuery credentials
 BigQuery support has been dropped from the base image in 3.1.

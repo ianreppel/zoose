@@ -1,0 +1,11 @@
+# Build context is the repo root for the single Dockerfile. Keep it to what a stage copies.
+.git
+.github
+**/__pycache__
+**/*.pyc
+.venv
+**/.venv
+scratch
+reqs
+*.tar
+*.log

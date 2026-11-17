@@ -13,11 +13,8 @@ FLAVOUR="${1:-base}"
 IMAGE="${PREFIX}-${FLAVOUR}:${TAG}"
 
 if ! docker image inspect "${IMAGE}" >/dev/null 2>&1; then
-  echo "${IMAGE} is not present locally; building it with docker compose first."
-  docker compose build base
-  if [ "${FLAVOUR}" != "base" ]; then
-    docker compose build "${FLAVOUR}"
-  fi
+  echo "${IMAGE} is not present locally; building it with docker buildx bake."
+  docker buildx bake --load "${FLAVOUR}"
 fi
 
 echo "Launching ${IMAGE}..."

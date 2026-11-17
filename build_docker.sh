@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# Build every Zoose image from one graph. Flavours build in parallel; base is built once
+# as a dependency, and nothing needs a published base image first.
 set -euo pipefail
 cd "$(dirname "$0")"
-# Local base must exist before any derived image; Gitpod must inherit its own flavour.
-docker compose build base
-docker compose build neo4j pytorch quantum geo
-docker compose build base-gitpod pytorch-gitpod quantum-gitpod geo-gitpod
+set -a; source .env; set +a
+exec docker buildx bake --load "$@"
