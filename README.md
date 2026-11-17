@@ -121,6 +121,8 @@ Fiona and pyogrio wheels each bundle GDAL. The image also builds the `osgeo` bin
 # How to use?
 Execute `./zoose.sh`, which launches a Jupyter notebooks session.
 By default it launches Zoose Base.
+If the image is not on the machine, the script builds it first with `docker compose build`, because the 6.0.0 tags are not published on Docker Hub.
+The first build takes several minutes and needs about 3 GB of disk per flavour.
 If you want Neo4j, Geo, or Quantum, just use `./zoose.sh neo4j`, `./zoose.sh geo`, or `./zoose.sh quantum` instead.
 
 By default JupyterLab listens on `0.0.0.0:8888`, runs as root, and requires no token or password.
