@@ -26,7 +26,7 @@ jobs:
         run: |
           set -euo pipefail
           unset PYTHONPATH VIRTUAL_ENV
-          for flavour in base neo4j pytorch geo quantum; do
+          for flavour in base pytorch geo quantum; do
             uv venv --clear --python 3.12 /tmp/zoose-verify
             uv pip install --python /tmp/zoose-verify/bin/python --no-cache -r "$flavour/requirements.txt"
             if [[ "$flavour" == geo ]]; then
@@ -48,7 +48,6 @@ jobs:
           add-paths: |
             README.md
             base/requirements.txt
-            neo4j/requirements.txt
             pytorch/requirements.txt
             geo/requirements.txt
             quantum/requirements.txt

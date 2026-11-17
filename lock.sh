@@ -4,10 +4,10 @@ set -euo pipefail
 unset PYTHONPATH VIRTUAL_ENV
 cd "$(dirname "$0")"
 command -v uv >/dev/null || { echo 'Install uv: https://docs.astral.sh/uv/' >&2; exit 1; }
-if (( $# > 1 )); then echo "Usage: $0 [base|neo4j|pytorch|geo|quantum]" >&2; exit 2; fi
-flavours=(base neo4j pytorch geo quantum)
+if (( $# > 1 )); then echo "Usage: $0 [base|pytorch|geo|quantum]" >&2; exit 2; fi
+flavours=(base pytorch geo quantum)
 if (( $# )); then
-  case "$1" in base|neo4j|pytorch|geo|quantum) flavours=("$1");; *) echo "Unknown flavour: $1" >&2; exit 2;; esac
+  case "$1" in base|pytorch|geo|quantum) flavours=("$1");; *) echo "Unknown flavour: $1" >&2; exit 2;; esac
 fi
 for flavour in "${flavours[@]}"; do
   uv pip compile "$flavour/requirements.in" --python-version 3.12 --upgrade \
@@ -40,7 +40,6 @@ sections = {'base': [['JupyterLab', 'jupyterlab'],
           ['spaCy', 'spacy'],
           ['StatsModels', 'statsmodels'],
           ['thefuzz', 'thefuzz']],
- 'neo4j': [['neomodel', 'neomodel'], ['Neo4j Python driver', 'neo4j']],
  'pytorch': [['Captum', 'captum'],
              ['PyTorch (CPU)', 'torch'],
              ['PyTorch Audio (CPU)', 'torchaudio'],

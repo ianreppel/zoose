@@ -6,7 +6,7 @@
 set -uo pipefail
 cd "$(dirname "$0")"
 set -a; source .env; set +a
-images=(base neo4j pytorch quantum geo)
+images=(base pytorch quantum geo)
 logs="${TMPDIR:-/tmp}"
 
 echo "== base"

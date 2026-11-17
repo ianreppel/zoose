@@ -5,12 +5,6 @@ services:
     image: "${PREFIX}-base:${TAG}"
     ports:
       - "8888:8888"
-  neo4j:
-    image: "${PREFIX}-neo4j:${TAG}"
-    ports:
-      - "7473:7473"
-      - "7474:7474"
-      - "7687:7687"
   pytorch:
     image: "${PREFIX}-pytorch:${TAG}"
   quantum:

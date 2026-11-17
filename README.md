@@ -8,13 +8,12 @@
 > Jupyter is to Jupiter as Zoose is to Zeus.
 
 Zoose is a [Docker container image](https://hub.docker.com/repository/docker/databaseline/zoose-base) for
-Jupyter notebooks pre-loaded with common Python packages as well as a Neo4j web server for graph
-analytics with Cypher.
+Jupyter notebooks pre-loaded with common Python packages.
 Containerized notebooks with a standard set of packages make sharing and reproducing notebooks
 easier: no need for virtual environments and brittle configurations that break on Python upgrades.
 
 ## Flavours
-Zoose comes in a few flavours: `base`, `neo4j`, `pytorch`, `quantum`, and `geo`.
+Zoose comes in a few flavours: `base`, `pytorch`, `quantum`, and `geo`.
 What is included in `base` is always included in the rest, too.
 
 You can run these flavours directly in VSCode from your browser with [GitHub Codespaces](https://github.com/ianreppelR/zoose-codespace/).
@@ -49,14 +48,6 @@ Python packages:
 
 Keras uses the JAX CPU backend by default; set `KERAS_BACKEND` before importing Keras to choose another installed backend.
 TikZ export uses the maintained [matplot2tikz](https://github.com/ErwindeGelder/matplot2tikz) successor: use `import matplot2tikz` in place of `import tikzplotlib`.
-
-### Zoose Neo4j
-Zoose Neo4j includes everything from Zoose Base as well as:
-- Neo4j Community Edition 4.4 (APT stable 4.4 channel)
-<!-- versions:neo4j -->
-- neomodel 7.0.0
-- Neo4j Python driver 6.1.0
-<!-- /versions:neo4j -->
 
 ### Zoose PyTorch
 Zoose PyTorch includes everything from Zoose Base as well as:
@@ -112,12 +103,12 @@ no published base image and no particular order of commands.
 Build everything in parallel, then run a flavour:
 
 ```bash
-./build_docker.sh          # docker buildx bake --load, all nine images
-./zoose.sh neo4j
+./build_docker.sh          # builds base, then the other three in parallel
+./zoose.sh quantum
 ```
 
-Or build and run one flavour in a single step. `./zoose.sh` builds the image through the
-same graph when it is not on the machine:
+Or build and run one flavour in a single step. `./zoose.sh` builds the image when it is
+not on the machine:
 
 ```bash
 ./zoose.sh quantum
@@ -173,12 +164,3 @@ You can do so by adding `-v $(pwd)/.qiskit:/root/.qiskit` to the command above.
 Use `qiskit_ibm_runtime.QiskitRuntimeService.save_account(channel="ibm_quantum_platform", token="...", instance="...")` once, then `QiskitRuntimeService()` to load the saved account.
 
 Just make sure you ignore `.qiskit` and do not share your API token in a git repository!
-
-# Neo4j
-Zoose also kicks off a [Neo4j](https://neo4j.com) web server. 
-The UI is available at [localhost:7474](https://127.0.0.1:7474).
-Please check out [this value stream example](https://Reppel.org/mapping-a-value-stream-in-neo4j/)
-to learn more about Neo4j and Cypher.
-
-If you use Neo4j, please ensure that your Docker container has at least 6 GB of RAM allocated.
-This can be configured in the Docker client under 'Resources'.

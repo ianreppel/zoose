@@ -2,7 +2,7 @@
 // in parallel, and each flavour pulls only its own base stage, so nothing waits on a
 // published image or on a hand-ordered list of commands.
 //
-//   docker buildx bake --load              // all five images
+//   docker buildx bake --load              // the four images
 //   docker buildx bake --load quantum      // one image, base built as a dependency
 //   docker buildx bake --load --set *.max-parallel=4   // cap concurrency
 //
@@ -17,7 +17,7 @@ variable "TAG" {
 }
 
 group "default" {
-  targets = ["base", "neo4j", "pytorch", "quantum", "geo"]
+  targets = ["base", "pytorch", "quantum", "geo"]
 }
 
 // The registry cache is additive: it speeds a rebuild without changing what is built.
@@ -31,12 +31,6 @@ target "base" {
   inherits = ["_common"]
   target   = "base"
   tags     = ["${PREFIX}-base:${TAG}", "${PREFIX}-base:latest"]
-}
-
-target "neo4j" {
-  inherits = ["_common"]
-  target   = "neo4j"
-  tags     = ["${PREFIX}-neo4j:${TAG}", "${PREFIX}-neo4j:latest"]
 }
 
 target "pytorch" {

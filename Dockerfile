@@ -62,24 +62,6 @@ COPY base/jupyter.sh /jupyter.sh
 EXPOSE 8888
 ENTRYPOINT ["/jupyter.sh"]
 
-# ---------------------------------------------------------------- neo4j
-FROM base AS neo4j
-LABEL org.opencontainers.image.vendor="ianreppel.org"
-RUN mkdir -p /etc/apt/keyrings && \
-    curl -fsSL https://debian.neo4j.com/neotechnology.gpg.key | gpg --dearmor -o /etc/apt/keyrings/neotechnology.gpg && \
-    chmod a+r /etc/apt/keyrings/neotechnology.gpg && \
-    echo 'deb [signed-by=/etc/apt/keyrings/neotechnology.gpg] https://debian.neo4j.com stable 4.4' > /etc/apt/sources.list.d/neo4j.list && \
-    apt-get update && apt-get install -y --no-install-recommends neo4j && \
-    rm -rf /var/lib/apt/lists/*
-WORKDIR /setup
-COPY neo4j/requirements.txt /setup/requirements.txt
-RUN --mount=type=cache,target=/root/.cache/pip \
-    pip install --break-system-packages --ignore-installed -r /setup/requirements.txt
-COPY neo4j/config/neo4j.conf /etc/neo4j/neo4j.conf
-COPY neo4j/neo4j.sh /neo4j.sh
-EXPOSE 7473 7474 7687
-ENTRYPOINT ["/neo4j.sh"]
-
 # ---------------------------------------------------------------- pytorch
 FROM base AS pytorch
 WORKDIR /setup

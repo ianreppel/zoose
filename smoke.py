@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Exercise a flavour offline: python -I smoke.py base|neo4j|pytorch|geo|quantum."""
+"""Exercise a flavour offline: python -I smoke.py base|pytorch|geo|quantum."""
 import importlib
 import os
 from pathlib import Path
@@ -11,8 +11,8 @@ from importlib.metadata import version
 os.environ.setdefault('KERAS_BACKEND', 'jax')
 os.environ.setdefault('MPLBACKEND', 'Agg')
 flavour = sys.argv[1] if len(sys.argv) == 2 else ''
-if flavour not in {'base', 'neo4j', 'pytorch', 'geo', 'quantum'}:
-    sys.exit('Usage: python -I smoke.py base|neo4j|pytorch|geo|quantum')
+if flavour not in {'base', 'pytorch', 'geo', 'quantum'}:
+    sys.exit('Usage: python -I smoke.py base|pytorch|geo|quantum')
 # Preserve the quantum test, including its Braket-before-QuTiP ordering.
 if flavour == 'quantum':
     try:
@@ -130,27 +130,6 @@ def utilities():
     return 'HTML, Scrapy, XLSX, Black, isort computed'
 
 
-def neo4j():
-    from neomodel import StructuredNode, StringProperty
-    from neo4j import GraphDatabase
-    class Person(StructuredNode):
-        name = StringProperty(required=True)
-    assert Person(name='Zoose').name == 'Zoose'
-    with GraphDatabase.driver('bolt://localhost:7687', auth=None) as driver:
-        assert driver is not None
-        if os.environ.get('ZOOSE_NEO4J_LIVE'):
-            import time
-            for attempt in range(60):
-                try:
-                    driver.verify_connectivity()
-                    break
-                except Exception:
-                    if attempt == 59:
-                        raise
-                    time.sleep(1)
-            with driver.session() as session:
-                assert session.run('RETURN 1 AS n').single()['n'] == 1
-    return f'neomodel {version("neomodel")}, neo4j {version("neo4j")} (offline client)'
 
 
 def pytorch():
@@ -222,7 +201,7 @@ def geo_gdal():
 
 for label, func in [('scientific', scientific), ('plotting', plotting), ('nlp', nlp), ('explanations', explanations), ('keras', keras_model), ('notebook', notebook), ('utilities', utilities)]:
     check(label, func)
-if flavour in {'neo4j', 'pytorch', 'geo'}:
+if flavour in {'pytorch', 'geo'}:
     check(flavour, globals()[flavour])
 if flavour == 'geo':
     check('geo-system-gdal', geo_gdal)
