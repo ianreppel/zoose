@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - name: Check Dockerfiles
+      - name: Lint the Dockerfile
         run: ./check_docker.sh
       - name: Build all images
         run: ./build_docker.sh
