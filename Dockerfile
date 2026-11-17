@@ -6,10 +6,16 @@
 #   docker build --target geo .            # same thing without bake
 #
 # Flavours inherit base by stage, which is what removes the old dependency on a pushed
-# databaseline/zoose-base tag. pip uses a BuildKit cache mount, so a rebuild after a
+# databaseline/zoose-base tag. uv uses a BuildKit cache mount, so a rebuild after a
 # requirement change reuses the wheel cache instead of downloading everything again.
+# ---------------------------------------------------------------- uv
+# The same uv that writes the locks, taken from its own image so the installer and the
+# resolver cannot drift apart.
+FROM ghcr.io/astral-sh/uv:0.13.5 AS uv
+
 # ---------------------------------------------------------------- base
 FROM ubuntu:24.04 AS base
+COPY --from=uv /uv /uvx /usr/local/bin/
 LABEL org.opencontainers.image.authors="Ian Reppel" \
       org.opencontainers.image.source="https://github.com/ianreppel/zoose" \
       org.opencontainers.image.vendor="ianreppel.org"
@@ -39,14 +45,13 @@ RUN apt-get update && apt-get -y upgrade && \
         sudo \
         graphviz && \
     add-apt-repository -y universe && apt-get update && \
-    apt-get install -y --no-install-recommends python3-pip && \
     ln -s /usr/bin/python${PYTHON_VERSION} /usr/bin/python && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /setup
 COPY base/requirements.txt /setup/requirements.txt
-RUN --mount=type=cache,target=/root/.cache/pip \
-    pip install --break-system-packages --ignore-installed -r /setup/requirements.txt
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv pip install --system --break-system-packages -r /setup/requirements.txt
 
 COPY base/dictionaries /usr/local/share/jupyter/dictionaries/
 COPY base/config/extensions.json /root/.jupyter/lab/user-settings/@jupyterlab/extensionmanager-extension/plugin.jupyterlab-settings
@@ -66,16 +71,16 @@ ENTRYPOINT ["/jupyter.sh"]
 FROM base AS pytorch
 WORKDIR /setup
 COPY pytorch/requirements.txt /setup/requirements.txt
-RUN --mount=type=cache,target=/root/.cache/pip \
-    pip install --break-system-packages --ignore-installed -r /setup/requirements.txt
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv pip install --system --break-system-packages -r /setup/requirements.txt
 ENTRYPOINT ["/jupyter.sh"]
 
 # ---------------------------------------------------------------- quantum
 FROM base AS quantum
 WORKDIR /setup
 COPY quantum/requirements.txt /setup/requirements.txt
-RUN --mount=type=cache,target=/root/.cache/pip \
-    pip install --break-system-packages --ignore-installed -r /setup/requirements.txt
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv pip install --system --break-system-packages -r /setup/requirements.txt
 ENTRYPOINT ["/jupyter.sh"]
 
 # ---------------------------------------------------------------- geo
@@ -84,9 +89,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends libgdal-dev && 
     rm -rf /var/lib/apt/lists/*
 WORKDIR /setup
 COPY geo/requirements.txt /setup/requirements.txt
-RUN --mount=type=cache,target=/root/.cache/pip \
-    pip install --break-system-packages --ignore-installed -r /setup/requirements.txt
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv pip install --system --break-system-packages -r /setup/requirements.txt
 # The system GDAL bridge must match libgdal exactly and build against the locked NumPy.
-RUN pip install --no-cache-dir --break-system-packages --ignore-installed \
-    --no-build-isolation "gdal==$(gdal-config --version)"
+RUN uv pip install --system --break-system-packages --no-build-isolation \
+    "gdal==$(gdal-config --version)"
 ENTRYPOINT ["/jupyter.sh"]

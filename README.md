@@ -122,8 +122,8 @@ docker buildx bake --load             # all of them
 docker buildx bake --load --set *.max-parallel=4   # cap how many run at once
 ```
 
-The pip installs use a BuildKit cache mount, so a rebuild after a requirements change
-reuses the wheels instead of downloading them again. `docker-compose.yml` runs the images;
+The Python installs run through uv, the same tool and version that writes the locks, with a
+BuildKit cache mount, so a rebuild after a requirements change reuses the wheels. `docker-compose.yml` runs the images;
 it no longer builds them.
 
 By default JupyterLab listens on `0.0.0.0:8888`, runs as root, and requires no token or password.
@@ -152,7 +152,7 @@ Note that the Jupyter kernel may crash when loading large data sets (into memory
 
 ## BigQuery credentials
 BigQuery support has been dropped from the base image in 3.1.
-You can install `pandas_gbq` and `google.auth` easily from within a notebook with `pip`: `! pip install pandas_gbq`.
+You can install `pandas_gbq` and `google.auth` easily from within a notebook with `uv`: `! uv pip install --system pandas_gbq`.
 
 If you use Zoose with BigQuery often, you may want to preserve credentials.
 You can do so by adding `-v $(pwd)/.config:/root/.config/pandas_gbq/` to the command above.
