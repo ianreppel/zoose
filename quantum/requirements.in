@@ -1,15 +1,15 @@
-# See: base/requirements.txt
--c requirements.txt
+# Standalone base + quantum lock: ./lock.sh quantum
+-r ../base/requirements.in
 
-# Due to issues with pip-compile and cirq (and openfermion), see Dockerfile for hack
-amazon-braket-sdk
+# Quantum flavour
 amazon-braket-pennylane-plugin
-amazon-braket-strawberryfields-plugin
-pennylane-qiskit
-pennylane-sf
+amazon-braket-sdk
+cirq
+openfermion
 pennylane
+pennylane-cirq
+pennylane-qiskit
 pytket
 qiskit
 qiskit[visualization]
 qutip
-strawberryfields

@@ -1,68 +1,13 @@
+# Runtime only. Build every image with ./build_docker.sh (docker buildx bake), which
+# builds the flavours in parallel from one Dockerfile. Compose no longer builds anything.
 services:
   base:
-    image: "databaseline/zoose-base"
-    build:
-      context: base
-      dockerfile: Dockerfile
+    image: "${PREFIX}-base:${TAG}"
     ports:
       - "8888:8888"
-  base-gitpod:
-    image: "databaseline/zoose-base-gitpod"
-    build:
-      context: gitpod
-      dockerfile: Dockerfile
-    depends_on:
-      - base
-  neo4j:
-    image: "databaseline/zoose-neo4j"
-    build:
-      context: neo4j
-      dockerfile: Dockerfile
-    depends_on:
-      - base
-    ports:
-      - "7473:7373"
-      - "7474:7474"
-      - "7687:7686"
   pytorch:
-    image: "databaseline/zoose-pytorch"
-    build:
-      context: pytorch
-      dockerfile: Dockerfile
-    depends_on:
-      - base
-  pytorch-gitpod:
-    image: "databaseline/zoose-pytorch-gitpod"
-    build:
-      context: gitpod
-      dockerfile: Dockerfile
-    depends_on:
-      - base
+    image: "${PREFIX}-pytorch:${TAG}"
   quantum:
-    image: "databaseline/zoose-quantum"
-    build:
-      context: quantum
-      dockerfile: Dockerfile
-    depends_on:
-      - base
-  quantum-gitpod:
-    image: "databaseline/zoose-quantum-gitpod"
-    build:
-      context: gitpod
-      dockerfile: Dockerfile
-    depends_on:
-      - base
+    image: "${PREFIX}-quantum:${TAG}"
   geo:
-    image: "databaseline/zoose-geo"
-    build:
-      context: geo
-      dockerfile: Dockerfile
-    depends_on:
-      - base
-  geo-gitpod:
-    image: "databaseline/zoose-geo-gitpod"
-    build:
-      context: gitpod
-      dockerfile: Dockerfile
-    depends_on:
-      - base
+    image: "${PREFIX}-geo:${TAG}"

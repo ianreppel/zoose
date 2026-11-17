@@ -1,22 +1,11 @@
 #!/bin/bash
-docker compose push
-
+set -euo pipefail
+cd "$(dirname "$0")"
 source .env
-for dir in *; do
-  if [ -d "${dir}" ]; then
-  	if [ "${dir}" != "gitpod" ]; then
-      docker tag  "${PREFIX}-${dir}" "${PREFIX}-${dir}:${TAG}"
-      docker push "${PREFIX}-${dir}:${TAG}"
-      docker tag  "${PREFIX}-${dir}" "${PREFIX}-${dir}:latest"
-      docker push "${PREFIX}-${dir}:latest"
-    else
-      docker tag   "${PREFIX}-base-${dir}" "${PREFIX}-base-${dir}:${TAG}"
-      docker push  "${PREFIX}-base-${dir}:${TAG}"
-      docker tag   "${PREFIX}-base-${dir}" "${PREFIX}-base-${dir}:latest"
-      docker push  "${PREFIX}-base-${dir}:latest"
-      docker push  "${PREFIX}-quantum-${dir}:${TAG}"
-      docker tag   "${PREFIX}-quantum-${dir}" "${PREFIX}-quantum-${dir}:latest"
-      docker push  "${PREFIX}-quantum-${dir}:latest"
-    fi
-  fi
+# Guard manual publishing too: no image is pushed until the complete suite passes.
+./.github/smoke-images.sh
+for flavour in base pytorch quantum geo; do
+  docker push "${PREFIX}-${flavour}:${TAG}"
+  docker tag "${PREFIX}-${flavour}:${TAG}" "${PREFIX}-${flavour}:latest"
+  docker push "${PREFIX}-${flavour}:latest"
 done

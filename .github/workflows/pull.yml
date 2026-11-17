@@ -2,20 +2,19 @@ name: PR CI
 
 on:
   pull_request:
-    branches: [ master ]
+    branches: [master]
+
+permissions:
+  contents: read
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: Log in to Docker Hub
-      run: docker login -u ${{secrets.DOCKERHUB_USER}} -p ${{secrets.DOCKERHUB_PASSWORD}}
-    - name: Check the Dockerfiles
-      run: ./check_docker.sh
-    - name: Build the Docker images
-      run: ./build_docker.sh
-    - name: Push the dev images
-      run: ./push_docker_dev.sh
-    - name: Clean up
-      run: ./clean_docker.sh
+      - uses: actions/checkout@v7
+      - name: Lint the Dockerfile
+        run: ./check_docker.sh
+      - name: Build all images
+        run: ./build_docker.sh
+      - name: Smoke every image before publishing
+        run: ./.github/smoke-images.sh

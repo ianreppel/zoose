@@ -1,7 +1,10 @@
-# See: base/requirements.txt
--c requirements.txt
+# Standalone base + geo lock: ./lock.sh geo
+-r ../base/requirements.in
 
-# gdal in Dockerfile
+# Fiona/pyogrio wheels bundle GDAL. The system osgeo bridge is built in Docker
+# at the exact gdal-config version, against these locked build dependencies.
+setuptools
+wheel
 geopandas
 geoplot
 h3
@@ -10,3 +13,5 @@ netCDF4
 shapely
 xarray
 zarr
+fiona
+pyogrio

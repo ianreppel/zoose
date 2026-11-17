@@ -1,9 +1,6 @@
-#!/bin/bash
-for dir in *; do
-  if [ -d "${dir}" ]; then
-    echo "${dir}"
-    docker run --pull always --rm -i \
-      -v $(pwd)/hadolint.yaml:/.config/hadolint.yaml \
-      hadolint/hadolint < "${dir}/Dockerfile"
-  fi
-done
+#!/usr/bin/env bash
+# One Dockerfile now, so one lint pass covers every image.
+set -euo pipefail
+cd "$(dirname "$0")"
+docker run --pull always --rm -i -v "$PWD/hadolint.yaml:/.config/hadolint.yaml:ro" \
+  hadolint/hadolint < Dockerfile

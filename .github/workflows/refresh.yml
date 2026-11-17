@@ -1,0 +1,53 @@
+name: Monthly Python locks
+
+on:
+  schedule:
+    - cron: '23 4 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10
+        with:
+          version: '0.13.5'
+      - name: Resolve stable Python 3.12 versions
+        run: ./lock.sh
+      - name: Install system GDAL build dependencies
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libgdal-dev
+      - name: Install and smoke each standalone lock
+        shell: bash
+        run: |
+          set -euo pipefail
+          unset PYTHONPATH VIRTUAL_ENV
+          for flavour in base pytorch geo quantum; do
+            uv venv --clear --python 3.12 /tmp/zoose-verify
+            uv pip install --python /tmp/zoose-verify/bin/python --no-cache -r "$flavour/requirements.txt"
+            if [[ "$flavour" == geo ]]; then
+              uv pip install --python /tmp/zoose-verify/bin/python --no-cache --no-build-isolation "gdal==$(gdal-config --version)"
+            fi
+            /tmp/zoose-verify/bin/python -I smoke.py "$flavour"
+            uv pip check --python /tmp/zoose-verify/bin/python
+          done
+      - name: Build and smoke the image configuration too
+        run: |
+          ./build_docker.sh
+          ./.github/smoke-images.sh
+      - uses: peter-evans/create-pull-request@v8
+        with:
+          branch: automation/python-locks
+          commit-message: Refresh stable Python locks
+          title: Refresh stable Python locks
+          body: All standalone locks installed on Python 3.12; flavour and image smoke tests passed.
+          add-paths: |
+            README.md
+            base/requirements.txt
+            pytorch/requirements.txt
+            geo/requirements.txt
+            quantum/requirements.txt
