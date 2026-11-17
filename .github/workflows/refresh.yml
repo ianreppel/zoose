@@ -1,8 +1,8 @@
-name: Weekly Python locks
+name: Monthly Python locks
 
 on:
   schedule:
-    - cron: '23 4 * * 1'
+    - cron: '23 4 1 * *'
   workflow_dispatch:
 
 permissions:
