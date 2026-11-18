@@ -32,7 +32,6 @@ RUN apt-get update && apt-get -y upgrade && \
         curl \
         wget \
         gpg gpg-agent \
-        openjdk-11-jre \
         python${PYTHON_VERSION} \
         python${PYTHON_VERSION}-dev \
         libzmq3-dev \
