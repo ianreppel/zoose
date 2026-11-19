@@ -1,5 +1,5 @@
-[![Master CI](https://github.com/ianreppel/zoose/actions/workflows/merge.yml/badge.svg)](https://github.com/ianreppel/zoose/actions/workflows/merge.yml)
-[![PR CI](https://github.com/ianreppel/zoose/actions/workflows/pull.yml/badge.svg)](https://github.com/ianreppel/zoose/actions/workflows/pull.yml)
+[![Master CI](https://github.com/ianreppel/zoose/actions/workflows/merge.yml/badge.svg)](https://github.com/ianreppel/actions/workflows/merge.yml)
+[![PR CI](https://github.com/ianreppel/zoose/actions/workflows/pull.yml/badge.svg)](https://github.com/ianreppel/actions/workflows/pull.yml)
 
 [![Qiskit Ecosystem: zoose-codespace](https://img.shields.io/endpoint?url=https://qiskit.github.io/ecosystem/b/255ca532)](https://qisk.it/e-255ca532)
 
@@ -16,9 +16,8 @@ easier: no need for virtual environments and brittle configurations that break o
 Zoose comes in a few flavours: `base`, `pytorch`, `quantum`, and `geo`.
 What is included in `base` is always included in the rest, too.
 
-You can run these flavours directly in VSCode from your browser with [GitHub Codespaces](https://github.com/ianreppel/zoose-codespace/).
+You can run these flavours directly in VSCode from your browser with [GitHub Codespaces](https://github.com/ianreppelR/zoose-codespace/).
 Only two clicks to spin up an IDE or notebook with all packages installed and ready!
-The `neo4j` and Gitpod flavoured images were removed on 2026-11-18; GitHub Codespaces is the supported browser route.
 
 ### Zoose Base
 - Python 3.12
