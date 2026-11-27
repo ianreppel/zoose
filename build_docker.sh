@@ -2,13 +2,14 @@
 # Build every Zoose image from one Dockerfile.
 # base is built first because every flavour inherits it. Each flavour then builds in its
 # own `bake` call, so one broken flavour does not cancel the others; the summary at the
-# end names every failure and the log to read.
+# end names every failure and prints the tail of its log.
 set -uo pipefail
 cd "$(dirname "$0")"
 [ -f .env ] || { echo '.env is missing; it holds PREFIX and TAG' >&2; exit 1; }
 set -a; source .env; set +a
 images=(base pytorch quantum geo)
-logs="${TMPDIR:-/tmp}"
+logs="$(mktemp -d "${TMPDIR:-/tmp}/zoose-build.XXXXXX")"
+trap 'rm -rf "$logs"' EXIT
 
 echo "== base"
 if ! docker buildx bake --load base; then
@@ -29,7 +30,8 @@ for f in "${images[@]:1}"; do
   if [ "$rc" = "0" ]; then
     echo "ok   $f"
   else
-    echo "FAIL $f (see ${logs}/zoose-build-${f}.log)"
+    echo "FAIL $f (last 30 lines of its log)"
+    tail -n 30 "${logs}/zoose-build-${f}.log"
     fail=1
   fi
 done

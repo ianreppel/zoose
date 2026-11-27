@@ -11,10 +11,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
       - name: Lint the Dockerfile
         run: ./check_docker.sh
       - name: Build all images
         run: ./build_docker.sh
+      - name: Record image sizes
+        run: docker image ls --format 'table {{.Repository}}\t{{.Tag}}\t{{.Size}}'
+      - name: Check the notebook token gate
+        run: ./.github/check-jupyter-token.sh
       - name: Smoke every image before publishing
         run: ./.github/smoke-images.sh

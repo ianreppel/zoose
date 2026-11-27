@@ -24,4 +24,5 @@ docker run --rm -it \
   -v "$(pwd):$(pwd)" \
   -w "$(pwd)" \
   -p 8888:8888 \
+  --env ZOOSE_TOKEN \
   "${IMAGE}"

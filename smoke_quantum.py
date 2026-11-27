@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Smoke test for Zoose Quantum: every quantum library runs a two-qubit Bell state.
+"""Smoke test for Zoose Quantum: every quantum library imports and computes something real.
+
+The circuit libraries run a two-qubit Bell state; OpenFermion conjugates a fermionic operator,
+pytket builds the Bell circuit and counts its gates, and QuTiP checks a state fidelity.
 
 Run it inside the image, or in a venv built from quantum/requirements.txt:
     python3 smoke_quantum.py
