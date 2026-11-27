@@ -4,7 +4,6 @@
 //
 //   docker buildx bake --load              // the four images
 //   docker buildx bake --load quantum      // one image, base built as a dependency
-//   docker buildx bake --load --set *.max-parallel=4   // cap concurrency
 //
 // PREFIX and TAG come from the environment (build_docker.sh sources .env first).
 

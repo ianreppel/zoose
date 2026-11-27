@@ -3,3 +3,6 @@
 **/.ipynb_checkpoints
 scratch
 reqs
+# credential dirs the README mounts; they hold cloud and IBM Qiskit tokens.
+/.config/
+/.qiskit/
