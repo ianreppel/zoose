@@ -1,16 +1,3 @@
-# syntax=docker/dockerfile:1.7@sha256:a57df69d0ea827fb7266491f2813635de6f17269be881f696fbfdf2d83dda33e
-# One file, one build graph. Every flavour is a stage, so any image builds on its own
-# with no published base image and no ordering between commands:
-#
-#   docker buildx bake --load quantum      # builds base if needed, then quantum
-#   docker build --target geo .            # same thing without bake
-#
-# Flavours inherit base by stage, which is what removes the old dependency on a pushed
-# databaseline/zoose-base tag. uv uses a BuildKit cache mount, so a rebuild after a
-# requirement change reuses the wheel cache instead of downloading everything again.
-# ---------------------------------------------------------------- uv
-# The same uv that writes the locks, taken from its own image so the installer and the
-# resolver cannot drift apart.
 FROM ghcr.io/astral-sh/uv:0.13.5@sha256:32a7bb39b496babbd997b0a39a4d66c126bdaf5661b302bf6f06abda8deca6ff AS uv
 
 # ---------------------------------------------------------------- base
@@ -25,8 +12,6 @@ ARG DEBIAN_FRONTEND="noninteractive"
 ARG TZ="Europe/Berlin"
 SHELL ["/bin/bash", "-cu"]
 
-# apt over TLS. The Ubuntu image ships plain-HTTP sources and no CA store, so the CA
-# certificates come first over the shipped sources; every fetch after that is HTTPS.
 RUN apt-get update && \
     apt-get install -y --no-install-recommends ca-certificates && \
     rm -rf /var/lib/apt/lists/* && \
