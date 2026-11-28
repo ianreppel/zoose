@@ -1,5 +1,3 @@
-# Runtime only. Build every image with ./build_docker.sh (docker buildx bake), which
-# builds the flavours in parallel from one Dockerfile. Compose no longer builds anything.
 services:
   base:
     image: "${PREFIX}-base:${TAG}"
